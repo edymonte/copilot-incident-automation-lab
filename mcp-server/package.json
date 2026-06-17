@@ -1,0 +1,17 @@
+{
+  "name": "copilot-incident-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP Server for incident management — ServiceNow, Jira, Azure DevOps",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

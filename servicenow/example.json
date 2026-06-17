@@ -1,0 +1,17 @@
+{
+  "number": "INC00012345",
+  "priority": "High",
+  "urgency": "High",
+  "impact": "High",
+  "assignmentGroup": "Cloud Platform",
+  "category": "Software",
+  "subcategory": "Application",
+  "state": "New",
+  "shortDescription": "Ticket API accepting invalid ticket status values",
+  "description": "The Ticket API is not validating status field values on POST /tickets and PATCH /tickets/:id endpoints. Any arbitrary string is accepted as a status, causing downstream processing failures.",
+  "openedAt": "2026-06-16T03:00:01Z",
+  "caller": "Monitoring System",
+  "affectedService": "Ticket API",
+  "businessImpact": "Data integrity risk — tickets with invalid statuses cannot be processed by downstream systems",
+  "workNotes": "Auto-created from GitHub monitoring alert. GitHub Issue: #47"
+}

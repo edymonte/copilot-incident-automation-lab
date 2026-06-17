@@ -1,0 +1,69 @@
+name: Monitoring — Auto Create Incident Issue
+
+on:
+  # Trigger manually for demo purposes
+  workflow_dispatch:
+    inputs:
+      alert_title:
+        description: 'Alert title'
+        required: true
+        default: 'High error rate detected in production'
+      alert_severity:
+        description: 'Severity (P1/P2/P3)'
+        required: true
+        default: 'P1'
+      alert_service:
+        description: 'Affected service'
+        required: true
+        default: 'Ticket API'
+
+  # In production, trigger this from your monitoring system via repository_dispatch
+  repository_dispatch:
+    types: [monitoring-alert]
+
+jobs:
+  create-incident-issue:
+    name: Create Incident Issue
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Create GitHub Issue for incident
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = context.eventName === 'workflow_dispatch'
+              ? context.payload.inputs.alert_title
+              : context.payload.client_payload.title;
+
+            const severity = context.eventName === 'workflow_dispatch'
+              ? context.payload.inputs.alert_severity
+              : context.payload.client_payload.severity || 'P2';
+
+            const service = context.eventName === 'workflow_dispatch'
+              ? context.payload.inputs.alert_service
+              : context.payload.client_payload.service || 'Unknown';
+
+            const body = `## 🚨 Incident Alert\n\n` +
+              `**Severity:** ${severity}\n` +
+              `**Service:** ${service}\n` +
+              `**Detected at:** ${new Date().toISOString()}\n\n` +
+              `## Description\n\n${title}\n\n` +
+              `## Expected Actions\n\n` +
+              `- [ ] Analyze root cause\n` +
+              `- [ ] Propose a fix\n` +
+              `- [ ] Generate tests\n` +
+              `- [ ] Open a Pull Request\n\n` +
+              `_This issue was automatically created by the monitoring system._`;
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[INCIDENT] ${title}`,
+              body,
+              labels: ['incident', severity.toLowerCase()],
+            });
+
+            console.log(`Issue created: ${issue.data.html_url}`);

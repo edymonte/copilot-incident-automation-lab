@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-06-16T03:00:00Z",
+  "service": "ticket-api",
+  "environment": "production",
+  "window": "last_60_seconds",
+  "metrics": {
+    "request_count": 520,
+    "error_count": 42,
+    "error_rate_percent": 8.07,
+    "p99_latency_ms": 1240,
+    "p95_latency_ms": 890,
+    "p50_latency_ms": 120,
+    "status_codes": {
+      "200": 421,
+      "201": 57,
+      "400": 0,
+      "404": 12,
+      "500": 30
+    }
+  },
+  "alerts": [
+    {
+      "name": "HighErrorRate",
+      "severity": "P1",
+      "threshold": 5,
+      "current_value": 42,
+      "triggered_at": "2026-06-16T03:00:00Z"
+    },
+    {
+      "name": "High500Rate",
+      "severity": "P2",
+      "threshold": 1,
+      "current_value": 30,
+      "triggered_at": "2026-06-16T02:59:55Z"
+    }
+  ],
+  "affected_endpoints": [
+    "POST /tickets",
+    "PATCH /tickets/:id"
+  ]
+}

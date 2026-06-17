@@ -1,0 +1,26 @@
+{
+  "name": "copilot-incident-automation-lab",
+  "version": "1.0.0",
+  "description": "GitHub Copilot Incident Automation Lab - Enterprise Edition",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node app/index.js",
+    "test": "jest --coverage",
+    "dev": "node --watch app/index.js"
+  },
+  "keywords": [
+    "github-copilot",
+    "incident-management",
+    "automation",
+    "devops"
+  ],
+  "author": "edymonte",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

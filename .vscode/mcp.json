@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "incident-management": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/mcp-server/index.js"],
+      "env": {
+        "SNOW_INSTANCE": "${env:SNOW_INSTANCE}",
+        "SNOW_USER": "${env:SNOW_USER}",
+        "SNOW_PASSWORD": "${env:SNOW_PASSWORD}",
+        "JIRA_HOST": "${env:JIRA_HOST}",
+        "JIRA_USER": "${env:JIRA_USER}",
+        "JIRA_TOKEN": "${env:JIRA_TOKEN}"
+      }
+    }
+  }
+}
